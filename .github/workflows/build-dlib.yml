@@ -18,7 +18,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y \
-            cmake \
             build-essential \
             libopenblas-dev \
             liblapack-dev \
@@ -26,18 +25,33 @@ jobs:
             python3-dev \
             pkg-config
 
-      - name: Build dlib wheel
+          # Downgrade cmake to version that supports old policies
+          pip install cmake==3.25.0
+
+      - name: Clone and patch dlib
+        run: |
+          git clone --depth 1 --branch v19.24.4 https://github.com/davisking/dlib.git
+          
+          # Patch CMakeLists.txt to fix cmake version issue
+          sed -i 's/cmake_minimum_required(VERSION 2.8.12)/cmake_minimum_required(VERSION 3.5)/' dlib/CMakeLists.txt
+          sed -i 's/cmake_minimum_required(VERSION 2.8.12)/cmake_minimum_required(VERSION 3.5)/' dlib/dlib/external/pybind11/CMakeLists.txt
+          sed -i 's/cmake_minimum_required(VERSION 2.8)/cmake_minimum_required(VERSION 3.5)/' dlib/dlib/external/pybind11/CMakeLists.txt
+
+      - name: Build wheel
         run: |
           pip install wheel setuptools
-          export CMAKE_ARGS="-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
-          pip wheel dlib==19.24.6 \
-            --wheel-dir backend/wheels/ \
-            --no-cache-dir
+          cd dlib
+          python setup.py bdist_wheel --dist-dir ../backend/wheels/
+
+      - name: Verify wheel was created
+        run: |
+          ls -la backend/wheels/
+          echo "Wheel built successfully"
 
       - name: Commit wheel to repo
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add backend/wheels/
-          git commit -m "add linux dlib wheel"
+          git commit -m "add prebuilt linux dlib wheel"
           git push
