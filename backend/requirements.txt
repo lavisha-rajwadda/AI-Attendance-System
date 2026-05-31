@@ -17,7 +17,7 @@ supabase==2.5.0                  # Official Supabase Python client
 postgrest==0.16.9                # PostgREST client (supabase dependency)
 
 # --- Machine Learning & Computer Vision ---
-face_recognition==1.3.0          # dlib-based 128D embeddings
+
 opencv-python-headless==4.9.0.80 # OpenCV without GUI (server safe)
 scikit-learn==1.5.0              # SVM classifier
 numpy==1.26.4                    # Array operations
@@ -35,12 +35,7 @@ python-jose[cryptography]==3.3.0 # JWT token handling
 qrcode[pil]==7.4.2               # QR code generation
 httpx==0.27.0                    # Async HTTP (supabase dependency)
 
-FastAPI
-dlib-bin
-git+https://github.com/ageitgey/face_recognition_models
-setuptools<70.0.0
 
-supabase
 bcrypt
 
 segno
