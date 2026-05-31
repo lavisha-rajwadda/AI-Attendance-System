@@ -1,0 +1,216 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ════════════════════════════════════════════════════════════
+   BASE STYLES
+   ════════════════════════════════════════════════════════════ */
+@layer base {
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply font-sans text-slate-700 antialiased;
+    background: #f8f7ff;
+    min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply text-slate-800 font-semibold tracking-tight;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f5f9;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #c4b5fd;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #a78bfa;
+  }
+}
+
+
+/* ════════════════════════════════════════════════════════════
+   COMPONENT CLASSES
+   ════════════════════════════════════════════════════════════ */
+@layer components {
+
+  /* ── Buttons ─────────────────────────────────────────── */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-lavender-500 to-lavender-600 shadow-soft hover:from-lavender-600 hover:to-lavender-700 hover:shadow-glow active:scale-[0.98] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:shadow-soft;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-lavender-700 bg-lavender-50 border border-lavender-200 hover:bg-lavender-100 hover:border-lavender-300 active:scale-[0.98] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-attendance {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white bg-gradient-to-r from-emerald-500 to-emerald-600 shadow-soft hover:from-emerald-600 hover:to-emerald-700 hover:shadow-glow active:scale-[0.98] transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl font-medium text-sm text-slate-500 hover:text-slate-700 hover:bg-slate-100 active:scale-[0.98] transition-all duration-200;
+  }
+
+  .btn-danger {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-sm text-white bg-rose-400 hover:bg-rose-500 active:scale-[0.98] transition-all duration-200;
+  }
+
+  /* ── Cards ───────────────────────────────────────────── */
+  .card {
+    @apply bg-white rounded-2xl shadow-card border border-slate-100 p-6 animate-fade-in;
+  }
+
+  .card-hover {
+    @apply card hover:shadow-glow hover:-translate-y-0.5 transition-all duration-200 cursor-pointer;
+  }
+
+  /* ── Form Inputs ─────────────────────────────────────── */
+  .input {
+    @apply w-full px-4 py-3 rounded-xl border border-slate-200 bg-white text-slate-700 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-lavender-300 focus:border-lavender-400 transition-all duration-200;
+  }
+
+  .input-error {
+    @apply input border-rose-300 focus:ring-rose-200 focus:border-rose-400;
+  }
+
+  .label {
+    @apply block text-sm font-medium text-slate-600 mb-1.5;
+  }
+
+  .form-group {
+    @apply flex flex-col gap-1;
+  }
+
+  /* ── Badges / Pills ──────────────────────────────────── */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-present {
+    @apply badge bg-mint-100 text-mint-500;
+  }
+
+  .badge-absent {
+    @apply badge bg-rose-100 text-rose-500;
+  }
+
+  .badge-lavender {
+    @apply badge bg-lavender-100 text-lavender-700;
+  }
+
+  /* ── Page shell ──────────────────────────────────────── */
+  .page-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8;
+  }
+
+  .page-title {
+    @apply text-2xl font-bold text-slate-800 tracking-tight;
+  }
+
+  .section-title {
+    @apply text-lg font-semibold text-slate-700;
+  }
+
+  /* ── Auth Layout ─────────────────────────────────────── */
+  .auth-wrapper {
+    @apply min-h-screen flex items-center justify-center bg-hero-gradient px-4;
+  }
+
+  .auth-card {
+    @apply w-full max-w-md bg-white rounded-3xl shadow-glow-lg p-8 border border-lavender-100 animate-slide-up;
+  }
+
+  /* ── Sidebar ─────────────────────────────────────────── */
+  .sidebar {
+    @apply fixed left-0 top-0 h-full w-64 bg-white border-r border-slate-100 flex flex-col shadow-card z-30;
+  }
+
+  .sidebar-link {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl mx-2 text-sm font-medium text-slate-600 hover:bg-lavender-50 hover:text-lavender-700 transition-all duration-150;
+  }
+
+  .sidebar-link-active {
+    @apply sidebar-link bg-lavender-50 text-lavender-700;
+  }
+
+  /* ── Table ───────────────────────────────────────────── */
+  .table-wrapper {
+    @apply w-full overflow-x-auto rounded-xl border border-slate-100;
+  }
+
+  .table {
+    @apply w-full text-sm text-slate-600;
+  }
+
+  .table thead {
+    @apply bg-slate-50 text-slate-500 uppercase text-xs tracking-wider;
+  }
+
+  .table th {
+    @apply px-4 py-3 text-left font-medium;
+  }
+
+  .table td {
+    @apply px-4 py-3.5 border-t border-slate-50;
+  }
+
+  .table tbody tr {
+    @apply hover:bg-lavender-50/50 transition-colors duration-100;
+  }
+
+  /* ── Alert / Feedback ────────────────────────────────── */
+  .alert-error {
+    @apply flex items-start gap-3 px-4 py-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-600 text-sm;
+  }
+
+  .alert-success {
+    @apply flex items-start gap-3 px-4 py-3 rounded-xl bg-mint-50 border border-mint-200 text-mint-500 text-sm;
+  }
+
+  .alert-info {
+    @apply flex items-start gap-3 px-4 py-3 rounded-xl bg-lavender-50 border border-lavender-200 text-lavender-700 text-sm;
+  }
+
+  /* ── Spinner ─────────────────────────────────────────── */
+  .spinner {
+    @apply inline-block w-5 h-5 border-2 border-lavender-200 border-t-lavender-500 rounded-full animate-spin;
+  }
+
+  /* ── Stat Card ───────────────────────────────────────── */
+  .stat-card {
+    @apply card flex flex-col gap-1;
+  }
+
+  .stat-value {
+    @apply text-3xl font-bold text-slate-800;
+  }
+
+  .stat-label {
+    @apply text-sm text-slate-500;
+  }
+}

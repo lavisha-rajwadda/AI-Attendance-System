@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Environment secrets — NEVER commit these
+.env
+*.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ML model artifacts (can be large)
+*.pkl
+*.joblib
+*.h5
+
+# Node / Frontend
+node_modules/
+dist/
+.cache/
+*.local
+
+# OS
+.DS_Store
+Thumbs.db
