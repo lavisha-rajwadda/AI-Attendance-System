@@ -35,7 +35,6 @@ python-jose[cryptography]==3.3.0 # JWT token handling
 qrcode[pil]==7.4.2               # QR code generation
 httpx==0.27.0                    # Async HTTP (supabase dependency)
 
-
 bcrypt
 
 segno
