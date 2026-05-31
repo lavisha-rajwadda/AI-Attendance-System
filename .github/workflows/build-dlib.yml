@@ -1,13 +1,13 @@
 name: Build dlib wheel for Linux
 
 on:
-  workflow_dispatch  # run manually once
+  workflow_dispatch
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4 
+      - uses: actions/checkout@v4
 
       - name: Set up Python 3.10
         uses: actions/setup-python@v5
@@ -17,12 +17,22 @@ jobs:
       - name: Install build dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake build-essential libopenblas-dev
+          sudo apt-get install -y \
+            cmake \
+            build-essential \
+            libopenblas-dev \
+            liblapack-dev \
+            libx11-dev \
+            python3-dev \
+            pkg-config
 
       - name: Build dlib wheel
         run: |
-          pip install wheel
-          pip wheel dlib==19.24.2 --wheel-dir backend/wheels/
+          pip install wheel setuptools
+          export CMAKE_ARGS="-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+          pip wheel dlib==19.24.6 \
+            --wheel-dir backend/wheels/ \
+            --no-cache-dir
 
       - name: Commit wheel to repo
         run: |
