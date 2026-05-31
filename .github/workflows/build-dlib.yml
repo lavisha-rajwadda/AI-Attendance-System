@@ -1,0 +1,33 @@
+name: Build dlib wheel for Linux
+
+on:
+  workflow_dispatch  # run manually once
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake build-essential libopenblas-dev
+
+      - name: Build dlib wheel
+        run: |
+          pip install wheel
+          pip wheel dlib==19.24.2 --wheel-dir backend/wheels/
+
+      - name: Commit wheel to repo
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add backend/wheels/
+          git commit -m "add linux dlib wheel"
+          git push
