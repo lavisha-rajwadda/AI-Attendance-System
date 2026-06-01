@@ -218,7 +218,7 @@ def read_root():
         "message": "Welcome to the Snap AI Attendance System API!",
         "docs": "Navigate to /docs to view the API documentation."
     }
-    
+
 @app.get(
     "/health",
     response_model=HealthResponse,
@@ -269,7 +269,7 @@ async def full_health():
 API_PREFIX = "/api/v1"
 
 # Only register the auth router since it's the only one that exists right now
-# app.include_router(auth.router, prefix=API_PREFIX, tags=["Authentication"])
+app.include_router(auth.router, prefix=API_PREFIX, tags=["Authentication"])
 
 # Commented out these two because the files do not exist yet. 
 # You can uncomment them later when you create subjects.py and attendance.py!
