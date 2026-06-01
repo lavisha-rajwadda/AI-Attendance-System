@@ -30,6 +30,8 @@ USER user
 # Upgrade foundational package installation tools
 RUN pip install --no-cache-dir --upgrade pip "setuptools<70.0.0" wheel
 
+
+ENV CMAKE_POLICY_VERSION_MINIMUM=3.5
 # Install core face recognition ecosystem dependencies from source
 RUN pip install --no-cache-dir dlib==19.24.2 && \
     pip install --no-cache-dir git+https://github.com/ageitgey/face_recognition_models
