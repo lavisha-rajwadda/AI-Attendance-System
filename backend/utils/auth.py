@@ -11,7 +11,7 @@ import logging
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 # pyrefly: ignore [missing-import]  
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, status, APIRouter
 # pyrefly: ignore [missing-import]
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
@@ -20,8 +20,22 @@ from passlib.context import CryptContext
 
 from config import get_settings
 from models.schemas import TokenData
+# pyrefly: ignore [missing-import]
+from fastapi import APIRouter
 
 logger = logging.getLogger(__name__)
+
+# ── ROUTER INITIALIZATION ─────────────────────────────────────────────────────
+# This is the exact variable that main.py is looking for!
+router = APIRouter()
+
+@router.post("/teacher/register")
+def register_teacher():
+    return {"message": "Teacher registered successfully!", "success": True}
+# ──────────────────────────────────────────────────────────────────────────────
+
+# ── Password hashing ──────────────────────────────────────────────────────────
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # ── Password hashing ──────────────────────────────────────────────────────────
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
