@@ -246,22 +246,22 @@ async def full_health():
         version="1.0.0",
     )
 
-
 # ══════════════════════════════════════════════════════════════════════════════
 # ROUTER REGISTRATION
-# Routers are imported here (after logging is configured) to avoid
-# circular import issues and to ensure loggers in routers inherit config.
 # ══════════════════════════════════════════════════════════════════════════════
 
-# Import routers lazily to avoid circular dependency issues at module load
-# pyrefly: ignore [missing-import]
-from router import auth, subjects, attendance  # noqa: E402
+# Import only the auth router from your real 'utils' folder
+from utils import auth  # noqa: E402
 
 API_PREFIX = "/api/v1"
 
-app.include_router(auth.router,       prefix=API_PREFIX, tags=["Authentication"])
-app.include_router(subjects.router,   prefix=API_PREFIX, tags=["Subjects"])
-app.include_router(attendance.router, prefix=API_PREFIX, tags=["Attendance"])
+# Only register the auth router since it's the only one that exists right now
+app.include_router(auth.router, prefix=API_PREFIX, tags=["Authentication"])
+
+# Commented out these two because the files do not exist yet. 
+# You can uncomment them later when you create subjects.py and attendance.py!
+# app.include_router(subjects.router,   prefix=API_PREFIX, tags=["Subjects"])
+# app.include_router(attendance.router, prefix=API_PREFIX, tags=["Attendance"])
 
 logger.info(f"Registered routers under prefix: {API_PREFIX}")
-logger.info("Routes: /auth, /subjects, /attendance")
+logger.info("Routes: /auth")
