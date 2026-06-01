@@ -1,53 +1,42 @@
-FROM python:3.10-bullseye
+# Use a highly optimized, lightweight Python base
+FROM python:3.10-slim-bullseye
 
-# Optimize Python environment runtime configurations
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PORT=7860
 
 WORKDIR /app
 
-# Install system dependencies required for compiling dlib and running OpenCV
+# Only install the bare minimum system requirements for OpenCV
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    cmake \
-    gfortran \
-    git \
-    libopenblas-dev \
-    liblapack-dev \
-    libx11-dev \
-    libgl1-mesa-dev \
+    libgl1-mesa-glx \
     libglib2.0-0 \
     && rm -rf /var/lib/apt/lists/*
 
-# MANDATORY HUGGING FACE SECURITY: Configure a non-root system user
+# Hugging Face Security: Non-root user
 RUN useradd -m -u 1000 user
 ENV PATH="/home/user/.local/bin:${PATH}"
 RUN chown -R user:user /app
-
 USER user
 
-# Upgrade foundational package installation tools
-# Upgrade foundational package installation tools
-RUN pip install --no-cache-dir --upgrade pip "setuptools<70.0.0" wheel
+RUN pip install --no-cache-dir --upgrade pip wheel
 
-# Force CMake & dlib to compile on 1 single core to prevent Out-of-Memory (OOM) crashes
-ENV DLIB_NUM_PROCESSING_CORES=1
-ENV MAKEFLAGS="-j1"
+# ==========================================
+# THE MAGIC FIX: ZERO-COMPILATION DLIB
+# ==========================================
+# 1. Install the pre-compiled dlib binary (Takes 3 seconds, 0 memory issues)
+RUN pip install --no-cache-dir dlib-bin==19.24.2
 
+# 2. Install face_recognition without dependencies so it doesn't try to re-download the old dlib
+RUN pip install --no-cache-dir --no-deps face_recognition face_recognition_models click
 
-ENV CMAKE_POLICY_VERSION_MINIMUM=3.5
-# Install core face recognition ecosystem dependencies from source
-RUN pip install --no-cache-dir dlib==19.24.2 && \
-    pip install --no-cache-dir git+https://github.com/ageitgey/face_recognition_models
-
+# Install your remaining backend requirements
 COPY --chown=user:user backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy all remaining repository directories and python source scripts
+# Copy the rest of your app logic
 COPY --chown=user:user backend/ .
 
-# Hugging Face Spaces route public internet web traffic through port 7860
 EXPOSE 7860
 
 CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT}"]

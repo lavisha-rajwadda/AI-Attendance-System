@@ -1,40 +1,32 @@
-# ============================================================
-#  Snap Attendance - Backend Dependencies
-#  Pin versions for reproducible production builds
-# ============================================================
-
 # --- Web Framework ---
 fastapi==0.111.0
-uvicorn[standard]==0.30.1        # ASGI server with WebSocket support
+uvicorn[standard]==0.30.1
 
 # --- Configuration & Environment ---
 pydantic==2.7.1
-pydantic-settings==2.3.0         # Settings management from .env
+pydantic-settings==2.3.0
 python-dotenv==1.0.1
 
 # --- Database ---
-supabase==2.5.0                  # Official Supabase Python client
-postgrest==0.16.9                # PostgREST client (supabase dependency)
+supabase==2.5.0
+postgrest==0.16.9
 
 # --- Machine Learning & Computer Vision ---
-
-opencv-python-headless==4.9.0.80 # OpenCV without GUI (server safe)
-scikit-learn==1.5.0              # SVM classifier
-numpy==1.26.4                    # Array operations
-Pillow==10.3.0                   # Image I/O utility
+opencv-python-headless==4.9.0.80
+scikit-learn==1.5.0
+numpy==1.26.4
+Pillow==10.3.0
 
 # --- File & Request Handling ---
-python-multipart==0.0.9          # FastAPI file upload support
-aiofiles==23.2.1                 # Async file operations
+python-multipart==0.0.9
+aiofiles==23.2.1
 
 # --- Security ---
-passlib[bcrypt]==1.7.4           # Password hashing
-python-jose[cryptography]==3.3.0 # JWT token handling
+passlib[bcrypt]==1.7.4
+python-jose[cryptography]==3.3.0
+bcrypt==4.1.3
 
 # --- Utilities ---
-qrcode[pil]==7.4.2               # QR code generation
-httpx==0.27.0                    # Async HTTP (supabase dependency)
-
-bcrypt
-
-segno
+qrcode[pil]==7.4.2
+httpx==0.27.0
+segno==1.6.1
