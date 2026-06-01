@@ -28,7 +28,12 @@ RUN chown -R user:user /app
 USER user
 
 # Upgrade foundational package installation tools
+# Upgrade foundational package installation tools
 RUN pip install --no-cache-dir --upgrade pip "setuptools<70.0.0" wheel
+
+# Force CMake & dlib to compile on 1 single core to prevent Out-of-Memory (OOM) crashes
+ENV DLIB_NUM_PROCESSING_CORES=1
+ENV MAKEFLAGS="-j1"
 
 
 ENV CMAKE_POLICY_VERSION_MINIMUM=3.5
