@@ -16,13 +16,14 @@ Dependencies:
 """
 
 import base64
+# pyrefly: ignore [missing-import]
 import cv2
 import io
 import logging
 from typing import List, Optional, Tuple
 
-import numpy as np
-from PIL import Image
+import numpy as np # pyright: ignore[reportMissingImports]
+from PIL import Image # pyright: ignore[reportMissingImports]
 
 logger = logging.getLogger(__name__)
 
@@ -123,6 +124,7 @@ def extract_embedding_from_base64(
     Raises:
         FaceRecognitionException: For blurriness, no faces, or multiple faces.
     """
+    # pyrefly: ignore [missing-import]
     # Lazy import to avoid loading dlib at module import time (slow ~2s)
     import face_recognition  # noqa: PLC0415
     from models.schemas import FaceRecognitionException
@@ -200,6 +202,7 @@ def extract_all_embeddings_from_base64(
         face_location_box = (top, right, bottom, left) in pixels.
         Returns an empty list if no faces found (not an error in batch mode).
     """
+    # pyrefly: ignore [missing-import]
     import face_recognition  # noqa: PLC0415
 
     logger.debug("extract_all_embeddings_from_base64() called (batch mode).")
@@ -244,6 +247,7 @@ def compare_embedding(
           - True/False (is match)
           - Euclidean distance (lower = more confident match)
     """
+    # pyrefly: ignore [missing-import]
     import face_recognition  # noqa: PLC0415
 
     known_np = np.array(known_embedding)

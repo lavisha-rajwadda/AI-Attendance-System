@@ -23,6 +23,7 @@ SVM configuration:
 import logging
 from typing import Dict, List, Tuple
 
+# pyrefly: ignore [missing-import]
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 

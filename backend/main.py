@@ -254,6 +254,7 @@ async def full_health():
 # ══════════════════════════════════════════════════════════════════════════════
 
 # Import routers lazily to avoid circular dependency issues at module load
+# pyrefly: ignore [missing-import]
 from routers import auth, subjects, attendance  # noqa: E402
 
 API_PREFIX = "/api/v1"

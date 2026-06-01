@@ -10,11 +10,13 @@ Centralises all auth logic:
 import logging
 from datetime import datetime, timedelta, timezone
 from typing import Optional
-
+# pyrefly: ignore [missing-import]  
 from fastapi import Depends, HTTPException, status
+# pyrefly: ignore [missing-import]
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from jose import JWTError, jwt
-from passlib.context import CryptContext
+# pyrefly: ignore [missing-import]
+from passlib.context import CryptContext    
 
 from config import get_settings
 from models.schemas import TokenData
