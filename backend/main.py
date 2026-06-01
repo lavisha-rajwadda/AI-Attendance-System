@@ -13,7 +13,7 @@ Run with:
     uvicorn main:app --reload --port 8000
 """
 
-from utils import auth 
+from routers import auth, subjects, attendance
 
 import logging
 import logging.config
@@ -263,18 +263,11 @@ async def full_health():
 # ROUTER REGISTRATION
 # ══════════════════════════════════════════════════════════════════════════════
 
-# Import only the auth router from your real 'utils' folder
- # noqa: E402
-
 API_PREFIX = "/api/v1"
 
-# Only register the auth router since it's the only one that exists right now
-app.include_router(auth.router, prefix=API_PREFIX, tags=["Authentication"])
-
-# Commented out these two because the files do not exist yet. 
-# You can uncomment them later when you create subjects.py and attendance.py!
-# app.include_router(subjects.router,   prefix=API_PREFIX, tags=["Subjects"])
-# app.include_router(attendance.router, prefix=API_PREFIX, tags=["Attendance"])
+app.include_router(auth.router,       prefix=API_PREFIX, tags=["Authentication"])
+app.include_router(subjects.router,   prefix=API_PREFIX, tags=["Subjects"])
+app.include_router(attendance.router, prefix=API_PREFIX, tags=["Attendance"])
 
 logger.info(f"Registered routers under prefix: {API_PREFIX}")
-logger.info("Routes: /auth")
+logger.info("Routes: /auth, /subjects, /attendance")
