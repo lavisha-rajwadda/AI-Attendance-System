@@ -32,15 +32,13 @@ RUN pip install --no-cache-dir --upgrade pip "setuptools<70.0.0" wheel
 
 # Install core face recognition ecosystem dependencies from source
 RUN pip install --no-cache-dir dlib==19.24.2 && \
-    pip install --no-cache-dir --no-deps face_recognition==1.3.0 && \
-    pip install --no-cache-dir git+https://github.com
+    pip install --no-cache-dir git+https://github.com/ageitgey/face_recognition_models
 
-# Copy requirements block with explicit user permissions
-COPY --chown=user:user requirements.txt .
+COPY --chown=user:user backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy all remaining repository directories and python source scripts
-COPY --chown=user:user . .
+COPY --chown=user:user backend/ .
 
 # Hugging Face Spaces route public internet web traffic through port 7860
 EXPOSE 7860
