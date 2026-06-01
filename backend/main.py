@@ -208,6 +208,17 @@ async def global_exception_handler(request: Request, exc: Exception):
 # HEALTH CHECK ENDPOINTS
 # ══════════════════════════════════════════════════════════════════════════════
 
+
+
+
+@app.get("/", tags=["Health Check"])
+def read_root():
+    return {
+        "status": "online",
+        "message": "Welcome to the Snap AI Attendance System API!",
+        "docs": "Navigate to /docs to view the API documentation."
+    }
+    
 @app.get(
     "/health",
     response_model=HealthResponse,
