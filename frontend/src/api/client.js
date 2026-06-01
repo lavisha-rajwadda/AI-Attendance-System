@@ -9,7 +9,7 @@
 
 import axios from 'axios';
 
-const BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api/v1';
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
 
 console.log('[API Client] Base URL:', BASE_URL);
 
@@ -66,21 +66,21 @@ apiClient.interceptors.response.use(
 // ── Auth endpoints ────────────────────────────────────────────────────────────
 export const authAPI = {
   teacherRegister: (data) => apiClient.post('/auth/teacher/register', data),
-  teacherLogin:    (data) => apiClient.post('/auth/teacher/login', data),
+  teacherLogin: (data) => apiClient.post('/auth/teacher/login', data),
   studentRegister: (data) => apiClient.post('/auth/student/register', data),
-  studentLogin:    (data) => apiClient.post('/auth/student/login', data),
-  getMe:           ()     => apiClient.get('/auth/me'),
+  studentLogin: (data) => apiClient.post('/auth/student/login', data),
+  getMe: () => apiClient.get('/auth/me'),
 };
 
 // ── Subjects endpoints ────────────────────────────────────────────────────────
 export const subjectsAPI = {
-  create:          (data)       => apiClient.post('/subjects/', data),
-  list:            ()           => apiClient.get('/subjects/'),
-  get:             (id)         => apiClient.get(`/subjects/${id}`),
-  delete:          (id)         => apiClient.delete(`/subjects/${id}`),
-  getQR:           (id)         => apiClient.get(`/subjects/${id}/qr`),
-  enroll:          (data)       => apiClient.post('/subjects/enroll', data),
-  listStudents:    (id)         => apiClient.get(`/subjects/${id}/students`),
+  create: (data) => apiClient.post('/subjects/', data),
+  list: () => apiClient.get('/subjects/'),
+  get: (id) => apiClient.get(`/subjects/${id}`),
+  delete: (id) => apiClient.delete(`/subjects/${id}`),
+  getQR: (id) => apiClient.get(`/subjects/${id}/qr`),
+  enroll: (data) => apiClient.post('/subjects/enroll', data),
+  listStudents: (id) => apiClient.get(`/subjects/${id}/students`),
 };
 
 // ── Attendance endpoints ──────────────────────────────────────────────────────
